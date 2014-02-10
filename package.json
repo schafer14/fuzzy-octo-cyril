@@ -7,6 +7,12 @@
   },
   "dependencies": {
     "express": "3.4.8",
-    "ejs": "*"
+    "jade": "1.1.5",
+    "bcrypt": "~0.7.7",
+    "mysql": "~2.0.1",
+    "should": "~3.1.2",
+    "mocha": "~1.7.1",
+    "tobi": "~0.3.2",
+    "migration": "~0.2.1"
   }
 }
