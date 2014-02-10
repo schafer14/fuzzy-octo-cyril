@@ -8,7 +8,7 @@ function User(obj) {
 }
 
 User.prototype.save = function(fn) {
-	fn();
+	fn(uid);
 };
 
 User.find = function(id, fn) {
