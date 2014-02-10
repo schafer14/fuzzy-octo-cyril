@@ -1,1 +1,1 @@
-{"migrations":[{"title":"migrations/20140209191642290-create_user_table.js"}],"path":"migrations/.migrate-development","pos":1,"_events":{}}
+{"migrations":[{"title":"migrations/20140209215910599-create_user_table.js"}],"path":"migrations/.migrate-development","pos":1,"_events":{}}

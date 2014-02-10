@@ -1,10 +1,11 @@
 var User = require('../model/User.js');
 var should = require('should');
+var sinon = require('sinon');
 var mock;
 
 describe('User', function() {
 	before(function() {
-		// MOCK DB
+		mock = sinon.mock(require('../middleware/db'));
 	})
 
 	beforeEach(function() {
@@ -41,7 +42,7 @@ describe('User', function() {
 			user.save(function(id) {
 				id.should.be.ok;
 				var uid = id;
-			});
+			}, mock);
 		})
 		it('should save the user', function() {
 			var ret = User.find(uid);
@@ -63,7 +64,7 @@ describe('User', function() {
 
 			user.save(function(uid) {
 
-			}).should.throw();
+			}, mock).should.throw();
 		})
 		it('should require email and password', function() {
 			var user = new User({
@@ -82,6 +83,28 @@ describe('User', function() {
 			var user = User.find(uid);
 			user.created_at.should.be.ok;
 			user.updated_at.should.be.ok;
+		})
+	})
+
+	describe('User.find()', function() {
+		it('should return data from a user', function() {
+			var user = new User({
+				name: 'new User',
+				email: 't1@example.com',
+				pass: 'pass',
+				img: 'path/to/img',
+				description: 'This is a desc'
+			});
+			user.save(function(uid) {
+				var ret = User.find(uid);
+
+				ret.name.should.equal(user.name);
+				ret.email.should.equal(user.email);
+				ret.img.should.equal(user.img);
+				ret.description.should.equal(user.description);
+				ret.pass.should.be.ok;
+				ret.created_at.should.be.ok;
+			}, mock);
 		})
 	})
 
