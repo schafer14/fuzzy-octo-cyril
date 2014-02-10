@@ -1,20 +1,7 @@
 var User = require('../model/User.js');
 var should = require('should');
-var sinon = require('sinon');
-var mock;
 
 describe('User', function() {
-	before(function() {
-		mock = sinon.mock(require('../middleware/db'));
-	})
-
-	beforeEach(function() {
-		//Clear DB
-	})
-
-	after(function () {
-		mock.restore();
-	})
 
 	describe('.User()', function() {
 		it('should create a new user', function() {
@@ -30,97 +17,92 @@ describe('User', function() {
 		})
 	})
 
-	describe('.save()', function() {
-		var uid;
-		it('should run save on a user', function() {
-			var user = new User ({
-				name: 'Test Case 1',
-				email: 't1@example.com',
-				pass: 'pass',
-				img: 'path/to/img.jpg'
-			});
-			user.save(function(id) {
-				id.should.be.ok;
-				var uid = id;
-			}, mock);
-		})
-		it('should save the user', function() {
-			var ret = User.find(uid);
-			ret.should.be.ok;
-			ret.should.have.property('description');
-			ret.name.should.equal('Test Case 1');
-			ret.email.should.equal('t1@example.com');
-		})
-		it('should hash the password', function() {
-			var ret = User.find(uid);
-			ret.pass.should.not.equal('pass');
-		})
-		it('should disallow non-unique emails', function() {
-			var user = new User({
-				name: 'Test Case 2',
-				email: 't1@example.com',
-				pass: 'pass',
-			});
-
-			user.save(function(uid) {
-
-			}, mock).should.throw();
-		})
-		it('should require email and password', function() {
-			var user = new User({
-				name: 'Test Case 3',
-				email: 't2@example.com'
-			});
-
-			var user2 = new User({
-				pass: 'pass'
-			});
-
-			user.var(function(uid) {}).should.throw();
-			user2.var(function(uid) {}).should.throw();
-		})
-		it('should create dates for updated_at and created_at', function() {
-			var user = User.find(uid);
-			user.created_at.should.be.ok;
-			user.updated_at.should.be.ok;
-		})
-	})
-
 	describe('User.find()', function() {
 		it('should return data from a user', function() {
-			var user = new User({
-				name: 'new User',
-				email: 't1@example.com',
-				pass: 'pass',
-				img: 'path/to/img',
-				description: 'This is a desc'
+			User.find(1, function(user) {
+				user.name.should.equal('Banner B Schafer');
+				user.email.should.equal('banner.schafer@gmail.com');
+				user.should.have.properties('pass');
+				user.created_at.should.be.ok;
 			});
-			user.save(function(uid) {
-				var ret = User.find(uid);
-
-				ret.name.should.equal(user.name);
-				ret.email.should.equal(user.email);
-				ret.img.should.equal(user.img);
-				ret.description.should.equal(user.description);
-				ret.pass.should.be.ok;
-				ret.created_at.should.be.ok;
-			}, mock);
 		})
 	})
 
+	// THESE TEST TAKE TO LONG
+
+	// describe('User.hash()', function() {
+	// 	it('should hash the users pass field', function() {
+	// 		var user = new User({pass: '12345', salt: '$2a$16$XCj./CbJVLJaGe6Gv6Ivv.'});
+	// 		user.hash(function(err) {
+	// 			if (err) throw err;
+	// 			user.pass.should.not.equal('12345');
+	// 		});
+	// 	})
+	// 	it('should return an error if salt is not provided', function() {
+	// 		var user = new User({pass: '12345'});
+	// 		user.hash(function(err) {
+	// 			err.should.be.okay;
+	// 			err.message.should.equal('Must use salt');
+	// 		});
+	// 	})
+	// })
+
+	describe('User.salt(user)', function() {
+		it('should add salt to user if none exists', function() {
+			var user = new User({pass: '12345'});
+			User.salt(user, function() {
+				user.salt.should.be.okay;
+			});
+		})
+		it('should not change salt if salt exists', function() {
+			var user = new User({salt: 'This is my salt'});
+			User.salt(user, function() {
+				user.salt.should.equal('This is my salt');
+			});
+		})
+	})
+
+	describe('User.authenticate()', function() {
+		it('should match passwords', function() {
+			var cred = {
+				email: 'banner.schafer@gmail.com',
+				pass: 'pass'
+			}
+
+			User.find(1, function(user) {
+				user.auth(cred, function(err, user) {
+					if (err) throw err;
+					user.should.be.okay;
+				});
+			});
+		})
+		it('should not validate incorrect passwords', function() {
+			var cred = {
+				email: 'banner.schafer@gmail.com',
+				pass: 'incorrect'
+			}
+
+			User.find(1, function(user) {
+				user.auth(cred, function(err, user) {
+					err.should.be.okay;
+					err.message.should.equal('Invalid credentials');
+				});
+			});
+
+		})
+	})
+
+	describe('User.get(opts)', function() {
+		it('should get user by email', function() {
+			User.get({email: 'banner.schafer@gmail.com'}, function(err, users) {
+				var user = users[0];
+				user.should.be.okay;
+				user.id.should.equal(1);
+			})
+		})
+	})
 	
 })
 
 
-//  MOCKING
-// it("returns the return value from the original function", function () {
-//     var myAPI = { method: function () {} };
-//     var mock = sinon.mock(myAPI);
-//     mock.expects("method").once().returns(42);
-
-//     var proxy = once(myAPI.method);
-
-//     assert.equals(proxy(), 42);
-//     mock.verify();
-// });
 

@@ -1,4 +1,3 @@
-var mysql = require('mysql');
 var db = require('../middleware/db.js').db;
 
 
