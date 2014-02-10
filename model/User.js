@@ -11,6 +11,13 @@ function User(obj) {
 }
 
 User.prototype.save = function(cb) {
+    this.name = this.name || '';
+    if (!this.email) return cb(new Error('Must have an email address'));
+    if (!this.pass) return cb(new Error('Must have a password'));
+    this.img = this.img || '';
+    this.description = this.description || '';
+    if (!this.salt) User.salt(this, function() {});
+
 
     var query = 'INSERT INTO user (name, email, password, img, description, salt) ' 
         + 'values (?, ?, ?, ?, ?, ?)';
