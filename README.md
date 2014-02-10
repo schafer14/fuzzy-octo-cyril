@@ -7,7 +7,7 @@ Snapstock.au with Node.js
 | Testing | DB | Backend | Front-end |
 | ------------- | ----------- | ----- | -----| ---- |
 | Mocha: unit framework BDD  | MySql | Express.js  | Angular.js |
-| should.js: assert lib | | Connect | ejs/jade:? |
+| should.js: assert lib | | Connect | jade |
 | tobi js: acceptence | |  | twitter bootstrap |
 
 
