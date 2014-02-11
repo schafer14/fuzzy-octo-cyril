@@ -1,5 +1,7 @@
 var db = require('../middleware/db').db;
 var bcrypt = require('bcrypt-nodejs');
+var Photo = require('./Photo');
+var Collection = require('./Collection');
 
 
 module.exports = User;
@@ -28,7 +30,7 @@ User.prototype.save = function(cb) {
         params,
         function(err, rows) {
             if (err) return cb(err);
-            cb(rows.insertId);
+            cb(null, rows.insertId);
         }
     );
 };
@@ -42,7 +44,7 @@ User.find = function(id, cb) {
         if (err) return cb(err);
         rows[0].pass = rows[0].password;
         delete rows[0].password;
-        cb(new User(rows[0]));
+        cb(null, new User(rows[0]));
     });
 };
 
@@ -55,10 +57,6 @@ User.prototype.toJSON = function() {
         img: this.img,
         description: this.description
     };
-}
-
-User.prototype.update = function(cb) {
-
 }
 
 User.salt = function(user, cb) {
@@ -135,7 +133,20 @@ User.get = function(opt, cb) {
 }
 
 User.prototype.collections = function(cb) {
-    // Returns a users collections
+    var colls = [];
+    var query = 'SELECT * '
+        + 'FROM collection '
+        + 'JOIN users_collections '
+        + 'ON collection_id = collection.id '
+        + 'WHERE user_id = ?;'
+
+    db.query(query, this.id, function(err, rows) {
+        if (err) return cb(err);
+        for (index in rows) {
+            colls.push(new Photo(rows[index]))
+        }
+        cb(null, colls);
+    })
 }
 
 User.prototype.photos = function(cb) {
