@@ -77,3 +77,7 @@ Collection.all = function(cb) {
 		cb(null, colls);
 	})
 }
+
+Collection.prototype.photos = function(cb) {
+	
+}

@@ -46,9 +46,6 @@ User.find = function(id, cb) {
     });
 };
 
-User.prototype.collections = function(cb) {
-    // Returns a users collections
-}
 
 User.prototype.toJSON = function() {
     return {
@@ -105,10 +102,6 @@ User.prototype.auth = function(cred, cb) {
     });
 }
 
-User.prototype.photos = function(cb) {
-
-}
-
 User.get = function(opt, cb) {
     var wheres = '';
     var params = [];
@@ -139,4 +132,12 @@ User.get = function(opt, cb) {
         }
         cb(null, users);
     });
+}
+
+User.prototype.collections = function(cb) {
+    // Returns a users collections
+}
+
+User.prototype.photos = function(cb) {
+
 }
