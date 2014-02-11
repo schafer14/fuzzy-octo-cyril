@@ -8,6 +8,8 @@ html
 		block header
 	body
 		include nav
-		include message
-		block content
+		div.fluid-container#content
+			include message
+			h1 #{title}
+			block content
 		include footer
