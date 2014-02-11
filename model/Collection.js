@@ -1,4 +1,5 @@
 var db = require('../middleware/db').db;
+var Photo = require('./Photo.js');
 
 
 module.exports = Collection;
@@ -79,5 +80,14 @@ Collection.all = function(cb) {
 }
 
 Collection.prototype.photos = function(cb) {
-	
+	var photos = [];
+	var query = 'SELECT * FROM photo WHERE collection_id=?';
+
+	db.query(query, this.id, function(err, rows) {
+		if (err) return cb(err);
+		for(index in rows) {
+			photos.push(new Photo(rows[index]));
+		}
+		cb(null, photos);
+	})
 }
