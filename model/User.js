@@ -150,5 +150,14 @@ User.prototype.collections = function(cb) {
 }
 
 User.prototype.photos = function(cb) {
+    var photos = [];
+    var query = 'SELECT * FROM photo WHERE user_id=?';
 
+    db.query(query, this.id, function(err, rows) {
+        if (err) return cb(err);
+        for(index in rows) {
+            photos.push(new Photo(rows[index]));
+        }
+        cb(null, photos);
+    })
 }
