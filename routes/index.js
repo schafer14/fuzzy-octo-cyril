@@ -1,5 +1,5 @@
 
 
 exports.index = function(req, res){
-  res.render('index', {title: 'This is my title'});
+  	res.render('index', {title: 'Amelia Template', filename:'template/layout'});
 };

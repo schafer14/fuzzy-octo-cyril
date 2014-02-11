@@ -1,0 +1,13 @@
+html
+	head
+		title #{settings.title}
+		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='/javascripts/jQuery.min.js')
+		script(src='/javascripts/bootstrap.min.js')
+		block header
+	body
+		include nav
+		include message
+		block content
+		include footer
