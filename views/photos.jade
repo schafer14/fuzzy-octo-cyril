@@ -1,5 +1,18 @@
 extends template/layout
 
 block header
-	
+
+block js
+	script(src='/javascripts/photos.js')
+
 block content
+	div(data-ng-controller='photoController')
+		div(ng-repeat='photo in photos')
+			div.col-sm-6.col-md-4
+				div.thumbnail
+					img(src='{{photo.path}}')
+					div.caption
+						h3.center-text {{photo.name}}
+						h6.center-text {{photo.artist}}
+						p.center-text {{photo.description}}
+							

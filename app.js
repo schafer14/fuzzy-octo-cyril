@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var photo = require('./routes/photo');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.set('title', 'SnapStock.au');
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/api/photos', photo.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

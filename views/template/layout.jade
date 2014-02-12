@@ -1,10 +1,8 @@
-html
+html(data-ng-app='snap')
 	head
 		title #{settings.title}
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
-		script(src='/javascripts/jQuery.min.js')
-		script(src='/javascripts/bootstrap.min.js')
 		block header
 	body
 		include nav
@@ -12,4 +10,10 @@ html
 			include message
 			h1 #{title}
 			block content
-		include footer
+		//- include footer
+
+		script(src='/javascripts/jQuery.min.js')
+		script(src='/javascripts/bootstrap.min.js')
+		script(src='/javascripts/angular.min.js')
+		script(src='/javascripts/angular-resource.min.js')
+		block js

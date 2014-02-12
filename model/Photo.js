@@ -19,7 +19,13 @@ Photo.find = function(id, cb) {
 
 Photo.all = function(cb) {
 	var photos = [];
-	var query = 'SELECT * FROM photo';
+	var query = ''
+		+ 'SELECT photo.name as name, photo.description, photo.path, photo.price, user.name as artist, collection.name as collection,collection.id as collection_id, user.id as user_id '
+		+ 'FROM photo '
+		+ 'JOIN user '
+		+ 'ON user.id = user_id '
+		+ 'JOIN collection '
+		+ 'on collection.id = collection_id; ';
 	
 	db.query(query, function(err, rows) {
 		if (err) return cb(err);
