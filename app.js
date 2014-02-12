@@ -9,6 +9,9 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var photo = require('./routes/photo');
+var collections = require('./routes/collections');
+var tags = require('./routes/tags');
+var artists = require('./routes/artists');
 
 var app = express();
 
@@ -34,8 +37,10 @@ if ('development' == app.get('env')) {
 app.set('title', 'SnapStock.au');
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 app.get('/api/photos', photo.index);
+app.get('/api/collections', collections.index);
+app.get('/api/tags', tags.index);
+app.get('/api/artists', artists.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

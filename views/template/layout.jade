@@ -4,7 +4,7 @@ html(data-ng-app='snap')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		block header
-	body
+	body(data-ng-controller='appController')
 		include nav
 		div.fluid-container#content
 			include message
@@ -16,4 +16,5 @@ html(data-ng-app='snap')
 		script(src='/javascripts/bootstrap.min.js')
 		script(src='/javascripts/angular.min.js')
 		script(src='/javascripts/angular-resource.min.js')
+		script(src='/javascripts/cli.js')
 		block js

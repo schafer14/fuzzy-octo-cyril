@@ -161,3 +161,16 @@ User.prototype.photos = function(cb) {
         cb(null, photos);
     })
 }
+
+User.all = function(cb) {
+    var users = [];
+    var query = 'SELECT * FROM user';
+
+    db.query(query, function(err, rows) {
+        if (err) return cb(err);
+        for(index in rows) {
+            users.push(new User(rows[index]));
+        }
+        cb(null, users);
+    })
+}

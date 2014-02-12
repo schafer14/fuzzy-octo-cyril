@@ -10,9 +10,44 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 			a.navbar-brand(href="/") #{settings.title}
 		div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
 			ul.nav.navbar-nav
-				li: a(href="#") Photos
-				li: a(href="#") Collections
-				li: a(href="#") Artists
+				li: a(href="/") Photos
+				li.dropdown
+					a.dropdown-toggle(data-toggle='dropdown')
+						span Artists
+						b.caret
+					ul.dropdown-menu
+						form
+							li: a: input.form-control.input-sm(type='text', 
+								ng-model='artistsearch', placeholder='Artists')
+						li.divider
+						li: a(href='/artist/{{artist.id}}',
+							ng-repeat="artist in artists | orderBy:'name' | filter:artistsearch | limitTo:5")
+							span {{artist.name}}
+				li.dropdown
+					a.dropdown-toggle(data-toggle='dropdown')
+						span Collections
+						b.caret
+					ul.dropdown-menu
+						form
+							li: a: input.form-control.input-sm(type='text', 
+								ng-model='collsearch', placeholder='Collections')
+						li.divider
+						li: a(href='/collection/{{coll.id}}', 
+							ng-repeat="coll in colls | orderBy:'name' | filter:collsearch | limitTo:5") 
+							span {{coll.name}} 
+				li.dropdown
+					a.dropdown-toggle(data-toggle='dropdown')
+						span Tags
+						b.caret
+					ul.dropdown-menu
+						form
+							li: a: input.form-control.input-sm(type='text', 
+								ng-model='tagsearch', placeholder='Tags')
+						li.divider
+						li: a(href='/tag/{{tag.id}}', 
+							ng-repeat="tag in tags | orderBy:'name' | filter:tagsearch | limitTo:5") 
+							span {{tag.name}} 
 			ul.nav.navbar-nav.navbar-right
 				li: a(href="#") Register
 				li: a(href="#") Login
+
