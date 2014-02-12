@@ -16,22 +16,10 @@ Snapstock.au with Node.js
   - Home page
   - Response types: html.
   
-#### GET: '/photos'
-  - Returns a list of photos depending on the query string
-  - Response types: html, json, xml, rss:?.
+Routing has been changed for two way data binding. 
 
-#### GET: '/photos/:id'
-  - Returns one photo with option to buy
-  - Response types: html. 
-
-## Routes for authors
-
-Data options for routes coming soon. 
-
-| GET | PUT | POST | DELETE |
-| ------------- | ----------- | ----- | -----| 
-| '/users/:id'  | '/users/:id' | '/users'  |  |
-| '/collections' | '/collections/:id' | '/collections' | '/collections/:id' |
-| '/tags' | | '/tags' |  | 
-|  | '/photos/:id' | '/photos' | '/photos/:id' |
- 
+#### Functional Routes
+  - /api/collections
+  - /api/tags
+  - /api/artists
+  - /api/photos 
