@@ -33,7 +33,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 							li: a: input.form-control.input-sm(type='text', 
 								ng-model='collsearch', placeholder='Collections')
 						li.divider
-						li: a(href='/collection/{{coll.id}}', 
+						li: a(href='#', ng-click='collectionRoute(coll.id)', 
 							ng-repeat="coll in colls | orderBy:'name' | filter:collsearch | limitTo:5") 
 							span {{coll.name}} 
 				li.dropdown
@@ -45,7 +45,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 							li: a: input.form-control.input-sm(type='text', 
 								ng-model='tagsearch', placeholder='Tags')
 						li.divider
-						li: a(href='/tag/{{tag.id}}', 
+						li: a(href='#', ng-click='tagRoute(tag.id)', 
 							ng-repeat="tag in tags | orderBy:'name' | filter:tagsearch | limitTo:5") 
 							span {{tag.name}} 
 			ul.nav.navbar-nav.navbar-right

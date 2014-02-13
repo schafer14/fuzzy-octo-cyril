@@ -6,15 +6,15 @@ block js
 
 block content
 	div(ng-show='state.page=="photo"')
-		div(data-ng-controller='photoController')
-			div.col-sm-4.col-md-3(ng-repeat='photo in photos')
-				div.thumbnail
-					img(src='{{photo.path}}')
-					div.caption
-						h3.center-text {{photo.name}}
-						h4.center-text By {{photo.artist}}
-						h5.center-text From {{photo.collection}}
-						p.center-text {{photo.description}}
+		div.col-sm-4.col-md-3(ng-repeat='photo in photos')
+			div.thumbnail
+				img(src='{{photo.path}}')
+				div.caption
+					h3.center-text {{photo.name}}
+					h4.center-text(ng-click='artistRoute(photo.user_id)') By {{photo.artist}}
+					h5.center-text(ng-click='collectionRoute(photo.collection_id)') From {{photo.collection}}
+					p.center-text {{photo.description}}
+				
 
 	div(ng-show='state.page=="artist"')
 		div.row

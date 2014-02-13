@@ -28,6 +28,17 @@ snap.factory('CollectionFactory', function($http) {
 			})
 	}
 
+	// Returns two params
+	factory.get = function(id, cb) {
+		$http({method: 'GET', url:'/api/collections/' + id}).
+			success(function(data, status, headers, config) {
+				return cb(data.collection, data.photos);
+			}).
+			error(function(data, status, headers, config) {
+				console.log(data);
+			})
+	}
+
 	return factory;
 
 })
