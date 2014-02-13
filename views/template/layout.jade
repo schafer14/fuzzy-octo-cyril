@@ -8,13 +8,15 @@ html(data-ng-app='snap')
 		include nav
 		div.fluid-container#content
 			include message
-			h1 #{title}
+			h1 {{ state.name }}
 			block content
 		//- include footer
 
 		script(src='/javascripts/jQuery.min.js')
 		script(src='/javascripts/bootstrap.min.js')
 		script(src='/javascripts/angular.min.js')
+		script(src='/javascripts/angular-animate.min.js')
 		script(src='/javascripts/angular-resource.min.js')
 		script(src='/javascripts/cli.js')
+		script(src='/javascripts/factories.js')
 		block js

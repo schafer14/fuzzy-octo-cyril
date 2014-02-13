@@ -8,3 +8,24 @@ exports.index = function(req, res) {
 		})
 	})
 }
+
+exports.find = function(req, res) {
+	User.find(req.params.id, function(err, user) {
+		if(err) throw err;
+		res.json({
+			artist: user
+		})
+	})
+}
+
+exports.collections = function(req, res) {
+	User.find(req.params.id, function(err, user) {
+		if(err) throw err;
+		user.collections(function(err, colls) {
+			if (err) throw err;
+			res.json({
+				collections: colls
+			})
+		})
+	})
+}

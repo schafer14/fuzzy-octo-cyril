@@ -7,10 +7,10 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 				span.icon-bar
 				span.icon-bar
 				span.icon-bar
-			a.navbar-brand(href="/") #{settings.title}
+			a.navbar-brand(href="#", ng-click='photoRoute()') #{settings.title}
 		div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
 			ul.nav.navbar-nav
-				li: a(href="/") Photos
+				li: a(href="#", ng-click='photoRoute()') Photos
 				li.dropdown
 					a.dropdown-toggle(data-toggle='dropdown')
 						span Artists
@@ -20,8 +20,9 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 							li: a: input.form-control.input-sm(type='text', 
 								ng-model='artistsearch', placeholder='Artists')
 						li.divider
-						li: a(href='/artist/{{artist.id}}',
-							ng-repeat="artist in artists | orderBy:'name' | filter:artistsearch | limitTo:5")
+						li: a(href='#',
+							ng-repeat="artist in artists | orderBy:'name' | filter:artistsearch | limitTo:5",
+							ng-click="artistRoute(artist.id)")
 							span {{artist.name}}
 				li.dropdown
 					a.dropdown-toggle(data-toggle='dropdown')

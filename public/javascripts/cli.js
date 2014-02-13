@@ -7,7 +7,37 @@ snap.controller('photoController', function($scope, PhotoFactory) {
 	});
 })
 
+
 snap.controller('appController', function($scope, CollectionFactory, TagFactory, ArtistFactory) {
+	$scope.state = {
+		page: 'photo',
+		name: 'Photos'
+	};
+
+	$scope.artistRoute = function(id) {
+		$scope.state = {
+			page: 'artist',
+			name: 'Artist'
+		};
+
+		ArtistFactory.get(id, function(artist) {
+			$scope.state.name = artist.name;
+			$scope.artist = artist;
+			ArtistFactory.collections(id, function(collections) {
+				console.log(collections)
+				$scope.artist.collections = collections
+			})
+		});
+
+	}
+
+	$scope.photoRoute = function() {
+		$scope.state = {
+			page: 'photo',
+			name: 'Photos'
+		}
+	}
+
 	CollectionFactory.getCollections(function(colls) {
 		$scope.colls = colls;
 	});
@@ -21,68 +51,3 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 	});
 })
 
-snap.factory('PhotoFactory', function($http) {
-	factory = {};
-
-	factory.getPhotos = function(cb) {
- 		$http({method: 'GET', url: '/api/photos'}).
-			success(function(data, status, headers, config) {
-				return cb(data.photos);
-			}).
-			error(function(data, status, headers, config) {	
-				console.log(data);
-			});
-	}
-
-
-	return factory;
-})
-
-snap.factory('CollectionFactory', function($http) {
-	factory = {};
-
-	factory.getCollections = function(cb) {
-		$http({method: 'GET', url:'/api/collections'}).
-			success(function(data, status, headers, config) {
-				return cb(data.collections);
-			}).
-			error(function(data, status, headers, config) {
-				console.log(data);
-			})
-	}
-
-	return factory;
-
-})
-
-snap.factory('TagFactory', function($http) {
-	factory = {};
-
-	factory.getTags = function(cb) {
-		$http({method: 'GET', url:'/api/tags'}).
-			success(function(data, status, headers, config) {
-				return cb(data.tags);
-			}).
-			error(function(data, status, headers, config) {
-				console.log(data);
-			})
-	}
-	return factory;
-
-})
-
-snap.factory('ArtistFactory', function($http) {
-	factory = {};
-
-	factory.getArtists = function(cb) {
-		$http({method: 'GET', url:'/api/artists'}).
-			success(function(data, status, headers, config) {
-				return cb(data.artists);
-			}).
-			error(function(data, status, headers, config) {
-				console.log(data);
-			})
-	}
-	return factory;
-
-})

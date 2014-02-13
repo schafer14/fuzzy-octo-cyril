@@ -41,6 +41,8 @@ app.get('/api/photos', photo.index);
 app.get('/api/collections', collections.index);
 app.get('/api/tags', tags.index);
 app.get('/api/artists', artists.index);
+app.get('/api/artists/:id', artists.find);
+app.get('/api/artists/:id/collections', artists.collections);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

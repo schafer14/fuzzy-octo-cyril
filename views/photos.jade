@@ -5,13 +5,26 @@ block header
 block js
 
 block content
-	div(data-ng-controller='photoController')
-		div.col-sm-4.col-md-3(ng-repeat='photo in photos')
-			div.thumbnail
-				img(src='{{photo.path}}')
-				div.caption
-					h3.center-text {{photo.name}}
-					h4.center-text By {{photo.artist}}
-					h5.center-text From {{photo.collection}}
-					p.center-text {{photo.description}}
-							
+	div(ng-show='state.page=="photo"')
+		div(data-ng-controller='photoController')
+			div.col-sm-4.col-md-3(ng-repeat='photo in photos')
+				div.thumbnail
+					img(src='{{photo.path}}')
+					div.caption
+						h3.center-text {{photo.name}}
+						h4.center-text By {{photo.artist}}
+						h5.center-text From {{photo.collection}}
+						p.center-text {{photo.description}}
+
+	div(ng-show='state.page=="artist"')
+		div.row
+			div.col-sm-12.col-md-4
+				img(src='{{artist.img}}', style='width: 100%;')
+			div.col-sm-12.col-md-4
+				h3 About
+				p {{artist.description}}
+			div.col-sm-12.col-md-4
+				h3 Collections
+				div(ng-repeat='coll in artist.collections')
+					p {{coll.name}} -- {{coll.description}}
+
