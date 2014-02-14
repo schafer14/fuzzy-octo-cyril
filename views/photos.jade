@@ -26,5 +26,5 @@ block content
 			div.col-sm-12.col-md-4
 				h3 Collections
 				div(ng-repeat='coll in artist.collections')
-					p {{coll.name}} -- {{coll.description}}
+					p(ng-click='collectionRoute(coll.id)') {{coll.name}} -- {{coll.description}}
 
