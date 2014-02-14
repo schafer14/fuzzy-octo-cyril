@@ -81,7 +81,14 @@ Collection.all = function(cb) {
 
 Collection.prototype.photos = function(cb) {
 	var photos = [];
-	var query = 'SELECT * FROM photo WHERE collection_id=?';
+	var query = ''
+		+ 'SELECT snapstock.photo.name as name, snapstock.photo.description, snapstock.photo.path, snapstock.photo.price, user.name as artist, collection.name as collection,collection.id as collection_id, user.id as user_id, snapstock.photo.created_at '
+		+ 'FROM snapstock.photo '
+		+ 'JOIN collection '
+		+ 'ON snapstock.photo.collection_id = collection.id '
+		+ 'JOIN user '
+		+ 'ON snapstock.photo.user_id = user.id '
+		+ 'WHERE collection_id=? ';
 
 	db.query(query, this.id, function(err, rows) {
 		if (err) return cb(err);

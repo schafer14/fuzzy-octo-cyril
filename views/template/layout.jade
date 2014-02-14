@@ -4,7 +4,7 @@ html(data-ng-app='snap')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		block header
-	body(data-ng-controller='appController')
+	body(data-ng-controller='appController' data-ng-init='photoRoute()')
 		include nav
 		div.fluid-container#content
 			include message

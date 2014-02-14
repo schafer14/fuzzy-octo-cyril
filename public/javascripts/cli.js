@@ -1,14 +1,6 @@
 var snap = angular.module('snap', []);
 
 snap.controller('appController', function($scope, CollectionFactory, TagFactory, ArtistFactory, PhotoFactory) {
-	PhotoFactory.getPhotos(function(photos) {
-		$scope.photos = photos;
-	});
-
-	$scope.state = {
-		page: 'photo',
-		name: 'Photos'
-	};
 
 	$scope.artistRoute = function(id) {
 		$scope.state = {
@@ -31,6 +23,10 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 			page: 'photo',
 			name: 'Photos'
 		}
+
+		PhotoFactory.getPhotos(function(photos) {
+			$scope.photos = photos;
+		});
 	}
 
 	$scope.collectionRoute = function(id) {
@@ -39,14 +35,18 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 				page: 'photo',
 				name: coll.name
 			}
-			console.log($scope.photos)
 			$scope.photos = photos;
-			console.log($scope.photos)
 		})
 	}
 
 	$scope.tagRoute = function(id) {
-		console.log('Tag', id)
+		TagFactory.get(id, function(tag, photos) {
+			$scope.state = {
+				page: 'photo',
+				name: tag.name
+			}
+			$scope.photos = photos;
+		})
 	}
 
 	CollectionFactory.getCollections(function(colls) {

@@ -55,6 +55,16 @@ snap.factory('TagFactory', function($http) {
 				console.log(data);
 			})
 	}
+
+	factory.get = function(id, cb) {
+		$http({method: 'GET', url:'/api/tags/' + id}).
+			success(function(data, status, headers, config) {
+				return cb(data.tag, data.photos);
+			}).
+			error(function(data, status, headers, config) {
+				console.log(data);
+			})
+	}
 	return factory;
 
 })

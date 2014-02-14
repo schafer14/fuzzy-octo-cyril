@@ -8,3 +8,16 @@ exports.index = function(req, res) {
 		})
 	})
 }
+
+exports.find = function(req, res) {
+	Tag.find(req.params.id, function(err, tag) {
+		if (err) throw err;
+		tag.photos(function(err, photos) {
+			if (err) throw err;
+			res.json({
+				tag: tag,
+				photos: photos
+			});
+		});
+	});
+};
