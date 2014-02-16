@@ -4,6 +4,18 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 	$scope.auth = {};
 	$scope.reg = {};
 	$scope.msg = [];
+	$scope.currUser = {};
+
+	getCurrUser();
+
+
+	function getCurrUser() {
+		ArtistFactory.session(function(data) {
+			if (data) {
+				$scope.currUser = data.user
+			}
+		})
+	}
 
 	$scope.artistRoute = function(id) {
 		$scope.state = {
@@ -52,7 +64,7 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		})
 	}
 
-	$scope.reg.submit = function() {
+	$scope.registerUser = function() {
 		$scope.reg.authenticate(function(err) {
 			if (err) {
 				$scope.logError(err.type, err.msg);
@@ -67,6 +79,14 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 			}
 		})
 
+	}
+
+	$scope.logout = function() {
+		ArtistFactory.logout(function(err) {
+			if (!err) {
+				delete $scope.currUser;
+			}
+		})
 	}
 
 	$scope.logError = function(type, msg) {
@@ -92,8 +112,13 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		}
 	} 
 
-	$scope.auth.submit = function() {
-		console.log($scope.auth)
+	$scope.loginUser = function() {
+		ArtistFactory.login($scope.auth, function(msg) {
+			$scope.logError(msg.type, msg.msg);
+			if(msg.user) {
+				$scope.currUser = msg.user;
+			}
+		})
 	}
 
 	$scope.$watch('msg.length', function() {

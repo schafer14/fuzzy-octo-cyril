@@ -49,3 +49,40 @@ exports.create = function(req, res) {
 		});
 	})
 }
+
+exports.login = function(req, res) {
+	var data = req.body;
+	User.auth({email: data.email, pass: data.pass}, function(err, user) {
+		if(user) {
+			req.session.uid = user.id;
+			res.json({
+				type: 'bg-success',
+				msg: 'Logged in',
+				user: user
+			});
+		} else {
+			res.json({
+				type: 'bg-danger',
+				msg: 'Invalid credentials'
+			})
+		}
+	});
+};
+
+exports.logout = function(req, res) {
+	req.session.destroy(function(err) {
+		if (err) throw err;
+		res.json();
+	});
+};
+
+exports.session = function(req, res) {
+	if (!req.session.uid){
+		res.json({});
+	} else {
+		User.find(req.session.uid, function(err, user) {
+			if (err) throw err;
+			res.json({ user: user });
+		})
+	}
+}

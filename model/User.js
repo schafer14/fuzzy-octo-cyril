@@ -1,5 +1,5 @@
 var db = require('../middleware/db').db;
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 var Photo = require('./Photo');
 var Collection = require('./Collection');
 
@@ -93,7 +93,6 @@ User.prototype.hash = function(cb) {
     bcrypt.hash(
         user.pass, 
         user.salt,
-        null, 
         function(err, hash) {
             if (err) return cb(err);
             user.pass = hash;
@@ -102,8 +101,11 @@ User.prototype.hash = function(cb) {
     );
 }
 
-User.prototype.auth = function(cred, cb) {
+User.auth = function(cred, cb) {
     User.get({email: cred.email}, function(err, users) {
+        if(!users[0]) {
+            return cb(new Error('User not found'));
+        }
         var user = users[0];
         bcrypt.compare(cred.pass, user.pass, function(err, match) {
             if (err) return cb(err);

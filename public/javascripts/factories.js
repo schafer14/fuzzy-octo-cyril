@@ -116,6 +116,39 @@ snap.factory('ArtistFactory', function($http) {
 		})
 	}
 
+	factory.login = function(auth, cb) {
+		$http({method: 'POST', url: '/api/login', data: {
+			email: auth.email,
+			pass: auth.password
+		}}).
+		success(function(data) {
+			return cb(data);
+		}).
+		error(function(data) {
+			console.log('data', data);
+		})
+	}
+
+	factory.logout = function(cb) {
+		$http({method: 'GET', url: '/api/logout'}).
+		success(function(data) {
+			return cb(data);
+		}).
+		error(function(data) {
+			return cb(data);
+		})
+	}
+
+	factory.session = function(cb) {
+		$http({method: 'GET', url:'/api/session'}).
+		success(function(user) {
+			return cb(user);
+		}).
+		error(function(data) {
+			console.log(data);
+		})
+	}
+
 	return factory;
 
 })
