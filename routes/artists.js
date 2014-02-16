@@ -29,3 +29,23 @@ exports.collections = function(req, res) {
 		})
 	})
 }
+
+exports.create = function(req, res) {
+	var user = new User(req.body);
+	user.save(function(err, id) {
+		var type, msg;
+		if (err) {
+			type = 'bg-danger';
+			msg = 'Something has gone wrong.';
+			console.log(err.message);
+		} else {
+			type = 'bg-success';
+			msg = 'Artist create.';
+		}
+		
+		res.json({
+			type: type,
+			msg: msg
+		});
+	})
+}

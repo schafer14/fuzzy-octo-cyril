@@ -102,6 +102,20 @@ snap.factory('ArtistFactory', function($http) {
 		})
 	}
 
+	factory.register = function(reg, cb) {
+		$http({method: 'POST', url: '/api/artists', data: {
+			name: reg.name,
+			email: reg.email,
+			pass: reg.pass
+		}}).
+		success(function(data) {
+			return cb(null, data);
+		}).
+		error(function(data) {
+			return cb(data);
+		})
+	}
+
 	return factory;
 
 })

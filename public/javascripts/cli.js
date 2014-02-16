@@ -1,6 +1,9 @@
 var snap = angular.module('snap', []);
 
 snap.controller('appController', function($scope, CollectionFactory, TagFactory, ArtistFactory, PhotoFactory) {
+	$scope.auth = {};
+	$scope.reg = {};
+	$scope.msg = [];
 
 	$scope.artistRoute = function(id) {
 		$scope.state = {
@@ -48,6 +51,60 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 			$scope.photos = photos;
 		})
 	}
+
+	$scope.reg.submit = function() {
+		$scope.reg.authenticate(function(err) {
+			if (err) {
+				$scope.logError(err.type, err.msg);
+			} else {
+				ArtistFactory.register($scope.reg, function(err, data) {
+					if (err) {
+						$scope.msg.push({'type': err.type, 'msg': err.msg});
+					} else {
+						$scope.logError(data.type, data.msg);
+					}
+				})	
+			}
+		})
+
+	}
+
+	$scope.logError = function(type, msg) {
+		if (type && msg) {
+			$scope.msg.push({type: type, msg: msg});
+		}
+	}
+
+	$scope.reg.authenticate = function(cb) {
+		if ($scope.reg.pass != $scope.reg.confPass) {
+			cb({type: 'bg-danger', msg: 'Password does not match password confirmation'}, null);
+			$scope.reg.pass = $scope.reg.confPass = '';
+		}  
+		if (!$scope.reg.email) {
+			cb({type: 'bg-warning', msg: 'Email is required'});
+		} 
+		if (!$scope.reg.pass) {
+			cb({type: 'bg-warning', msg: 'Password is required'});
+		}
+
+		if ($scope.reg.pass == $scope.reg.confPass && $scope.reg.email && $scope.reg.pass) {
+			cb(null);
+		}
+	} 
+
+	$scope.auth.submit = function() {
+		console.log($scope.auth)
+	}
+
+	$scope.$watch('msg.length', function() {
+		if ($scope.msg.length) {
+			setInterval(function() {
+				$scope.$apply(function() {
+					$scope.msg.splice(0, 1);
+				});
+			}, 5000)
+		}
+	});
 
 	CollectionFactory.getCollections(function(colls) {
 		$scope.colls = colls;

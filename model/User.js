@@ -13,26 +13,39 @@ function User(obj) {
 }
 
 User.prototype.save = function(cb) {
+    var user = this
     this.name = this.name || '';
     if (!this.email) return cb(new Error('Must have an email address'));
     if (!this.pass) return cb(new Error('Must have a password'));
     this.img = this.img || '';
     this.description = this.description || '';
-    if (!this.salt) User.salt(this, function() {});
 
+    if (!user.salt) {
+        User.salt(user, function() {
+            user.hash(function() {
+                next();  
+            })
+        });
+    } else {
+        user.hash(function() {
+            next();  
+        })
+    }
 
-    var query = 'INSERT INTO user (name, email, password, img, description, salt) ' 
-        + 'values (?, ?, ?, ?, ?, ?)';
+    function next() {
+        var query = 'INSERT INTO user (name, email, password, img, description, salt) ' 
+            + 'values (?, ?, ?, ?, ?, ?)';
 
-    var params = [this.name, this.email, this.pass, this.img, this.description, this.salt];
+        var params = [user.name, user.email, user.pass, user.img, user.description, user.salt];
 
-    db.query(query, 
-        params,
-        function(err, rows) {
-            if (err) return cb(err);
-            cb(null, rows.insertId);
-        }
-    );
+        db.query(query, 
+            params,
+            function(err, rows) {
+                if (err) return cb(err);
+                cb(null, rows.insertId);
+            }
+        );
+    }
 };
 
 User.find = function(id, cb) {

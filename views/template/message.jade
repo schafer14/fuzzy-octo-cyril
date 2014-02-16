@@ -1,0 +1,4 @@
+span(ng-show='msg.length')
+	ul
+		span(ng-repeat='err in msg')
+			li: p(class='{{err.type}}') {{err.msg}}

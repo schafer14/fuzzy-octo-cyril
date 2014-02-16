@@ -45,6 +45,7 @@ app.get('/api/tags/:id', tags.find);
 app.get('/api/artists', artists.index);
 app.get('/api/artists/:id', artists.find);
 app.get('/api/artists/:id/collections', artists.collections);
+app.post('/api/artists', artists.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
