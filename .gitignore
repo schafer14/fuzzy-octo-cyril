@@ -4,5 +4,5 @@ migrations/.migrate-development
 npm-debug.log
 trial.js
 grunt.js
-pictures
+public/pictures
 temp
