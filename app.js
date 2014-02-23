@@ -44,6 +44,7 @@ app.get('/api/tags', tags.index);
 app.get('/api/tags/:id', tags.find);
 app.get('/api/artists', artists.index);
 app.get('/api/artists/:id', artists.find);
+app.post('/artists/:id/edit', artists.update);
 app.get('/api/artists/:id/collections', artists.collections);
 app.post('/api/artists', artists.create);
 app.post('/api/login', artists.login);

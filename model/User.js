@@ -189,3 +189,20 @@ User.all = function(cb) {
         cb(null, users);
     })
 }
+
+User.findAndUpdate = function(id, obj, cb) {
+    var query = 'UPDATE user SET ';
+    for (i in obj) {
+        if (obj.length = i) {
+            query += i + '=\'' + obj[i] + '\' ';
+        } else {
+            query += i + '=\'' + obj[i] + '\', ';
+        }
+    }
+    query += 'WHERE id=' +id;
+
+    db.query(query, function(err) {
+        if (err) return cb(err);
+        cb();
+    })
+}

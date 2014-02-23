@@ -17,6 +17,15 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		})
 	}
 
+	$scope.profileRoute = function() {
+		if ($scope.currUser) {
+			$scope.state = {
+				page: 'profile',
+				name: $scope.currUser.name
+			};
+		}
+	}
+
 	$scope.artistRoute = function(id) {
 		$scope.state = {
 			page: 'artist',
@@ -85,6 +94,10 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		ArtistFactory.logout(function(err) {
 			if (!err) {
 				delete $scope.currUser;
+				$scope.state = {
+					page: 'photo',
+					name: 'Photos'
+				}
 			}
 		})
 	}
@@ -117,6 +130,10 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 			$scope.logError(msg.type, msg.msg);
 			if(msg.user) {
 				$scope.currUser = msg.user;
+				$scope.state = {
+					page: 'profile',
+					name: msg.user.name
+				}
 			}
 		})
 	}
@@ -130,6 +147,12 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 			}, 5000)
 		}
 	});
+
+	$scope.$watch('currUser.name', function() {
+		if ($scope.state.page === 'profile') {
+			$scope.state.name = $scope.currUser.name;
+		}
+	})
 
 	CollectionFactory.getCollections(function(colls) {
 		$scope.colls = colls;

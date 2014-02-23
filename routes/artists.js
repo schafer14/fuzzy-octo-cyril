@@ -1,4 +1,7 @@
 var User = require('../model/User');
+var fs = require('fs');
+var formidable = require('formidable');
+var folder = './pictures/users/';
 
 exports.index = function(req, res) {
 	User.all(function(err, users) {
@@ -85,4 +88,22 @@ exports.session = function(req, res) {
 			res.json({ user: user });
 		})
 	}
+}
+
+exports.update = function(req, res) {
+	var form = new formidable.IncomingForm();
+	form.uploadDir = folder;
+	form.keepExtensions = true;
+	form.parse(req, function(err, fields, files) { 
+		if (err) throw err;
+		console.log(fields);
+	});
+
+	form.on('end', function() {
+		var origin = this.openedFiles[0].path;
+		User.findAndUpdate(1, {img: origin}, function(err) {
+			if (err) throw err;
+			res.render('photos', {title: 'Photos', filename:'template/layout'});
+		})
+	});
 }
