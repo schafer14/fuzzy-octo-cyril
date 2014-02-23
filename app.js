@@ -51,6 +51,7 @@ app.post('/api/login', artists.login);
 app.get('/api/logout', artists.logout);
 app.get('/api/session', artists.session);
 
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

@@ -32,11 +32,11 @@ block content
 		div.row
 			div.col-sm-6.col-md-4
 				div.thumbnail
-					img(src='http://2.gravatar.com/avatar/bdba54f63f5ba583cc22018a76148897')
+					img(src='/{{currUser.img}}')
 					div.caption
-						form(method='POST', action='artists/{{currUser.id}}/edit', enctype='multipart/form-data')
+						form(method='POST', action='/artists/{{currUser.id}}/edit', enctype='multipart/form-data')
 							input.form-control(type='file', name='img')
-							input.form-control(type='text', ng-model='currUser.name', name='user[name]')
-							textarea.form-control.contenteditable(ng-model='currUser.description', name='user[description]')
+							input.form-control(type='text', ng-model='currUser.name', name='name')
+							textarea.form-control.contenteditable(ng-model='currUser.description', name='description')
 							input(type='submit', value='Save')
 

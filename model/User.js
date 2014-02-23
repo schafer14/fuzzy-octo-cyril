@@ -193,12 +193,10 @@ User.all = function(cb) {
 User.findAndUpdate = function(id, obj, cb) {
     var query = 'UPDATE user SET ';
     for (i in obj) {
-        if (obj.length = i) {
-            query += i + '=\'' + obj[i] + '\' ';
-        } else {
-            query += i + '=\'' + obj[i] + '\', ';
-        }
+        query += i + '=\'' + obj[i] + '\', ';
     }
+
+    query = query.substring(0, query.length - 2);
     query += 'WHERE id=' +id;
 
     db.query(query, function(err) {
