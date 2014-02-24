@@ -21,3 +21,35 @@ exports.find = function(req, res) {
 		});
 	});
 };
+
+exports.create = function(req, res) {
+	var coll = new Collection({
+		name: req.body.name,
+		description: req.body.desc, 
+		owner_id: req.session.uid
+	});
+
+	coll.save(function(err, id) {
+		if (err) {
+			res.json({
+				type: 'bg-danger',
+				msg: 'Error saving collection'
+			});
+		} else {
+			Collection.find(id, function(err, coll) {
+				if (err) {
+					res.json({
+						type: 'bg-danger',
+						msg: 'Something has gone wrong with your collection'
+					})
+				} else {
+					res.json({
+						type: 'bg-success',
+						msg: 'Collection has been created',
+						coll: coll
+					})
+				}
+			})
+		}
+	})
+}

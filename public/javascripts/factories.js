@@ -39,6 +39,17 @@ snap.factory('CollectionFactory', function($http) {
 			})
 	}
 
+	factory.create = function(input, cb) {
+		$http({method: 'POST', url:'/api/collections', data: {
+			name: input.name,
+			desc: input.desc
+		}}).success(function(data) {
+			return cb(data);
+		}). error(function(data) {
+			console.log(data);
+		})
+	}
+
 	return factory;
 
 })

@@ -38,5 +38,15 @@ block content
 							input.form-control(type='file', name='img')
 							input.form-control(type='text', ng-model='currUser.name', name='name')
 							textarea.form-control.contenteditable(ng-model='currUser.description', name='description')
-							input(type='submit', value='Save')
+							input.btn.btn-primary(type='submit', value='Save')
+			div.col-sm-6.col-md-4
+				div.thumbnail
+					h3 Add pictures.
+			div.col-sm-6.col-md-4
+				div.thumbnail
+					div.caption
+						h3 Create Collection.
+						input.form-control(type='text', placeholder='Collection Name', ng-model='newColl.name')
+						textarea.form-control(placeholder='Description', ng-model='newColl.desc')
+						button.btn.btn-primary(ng-click='createCollection()', value='Create') Create
 

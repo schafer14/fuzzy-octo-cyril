@@ -33,17 +33,18 @@ Collection.count = function(cb) {
 
 Collection.prototype.save = function(cb) {
 	if (!this.name) return cb(new Error('Must include name'));
+	if (!this.owner_id) return cb(new Error('Must include owner_id'));
 	this.description = this.description || '';
 	this.cover_photo = this.cover_photo || '';
 
-	var query = 'INSERT INTO collection (name, description, cover_photo) '
-		+ ' values (?, ?, ?)'
+	var query = 'INSERT INTO collection (name, description, cover_photo, owner_id) '
+		+ ' values (?, ?, ?, ?)'
 
-	var params = [this.name, this.description, this.cover_photo];
+	var params = [this.name, this.description, this.cover_photo, this.owner_id];
 
 	db.query(query, params, function(err, rows) {
 		if (err) return cb(err);
-		cb(rows.insertId);
+		cb(null, rows.insertId);
 	})
 }
 

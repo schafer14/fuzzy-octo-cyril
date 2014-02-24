@@ -10,6 +10,7 @@ exports.up = function(next){
         + "name VARCHAR(128) NOT NULL, " 
         + "description LONGTEXT,"
         + "cover_photo VARCHAR(128),"
+        + "owner_id INT(10) UNSIGNED,"
         + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
         + "PRIMARY KEY(id))",
         function(err) { 

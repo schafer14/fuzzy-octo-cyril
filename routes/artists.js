@@ -95,6 +95,7 @@ exports.update = function(req, res) {
 	form.uploadDir = folder;
 	form.keepExtensions = true;
 	form.parse(req, function(err, fields, files) { 
+		console.log(files);
 		if (err) throw err;
 		User.findAndUpdate(req.params.id, {
 			name: fields.name,
@@ -107,12 +108,15 @@ exports.update = function(req, res) {
 	form.on('end', function() {
 		if (this.openedFiles[0]) {
 			var origin = this.openedFiles[0].path;
-			origin = origin.substring(7);
-			console.log(origin);
-			User.findAndUpdate(req.params.id, {img: origin}, function(err) {
-				if (err) throw err;
-				res.render('photos', {title: 'Photos', filename:'template/layout'});
-			})
+			if (this.openedFiles[0].size != 0) {
+				origin = origin.substring(7);
+				User.findAndUpdate(req.params.id, {img: origin}, function(err) {
+					if (err) throw err;
+					res.render('photos', {title: 'Photos', filename:'template/layout'});
+				})
+			} else {
+				res.render('photos', {filename: 'template/layout'});
+			}
 		}
 	});
 }

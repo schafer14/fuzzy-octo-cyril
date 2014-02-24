@@ -38,6 +38,7 @@ app.set('title', 'SnapStock.au');
 
 app.get('/', routes.index);
 app.get('/api/photos', photo.index);
+app.post('/api/collections', collections.create);
 app.get('/api/collections', collections.index);
 app.get('/api/collections/:id', collections.find);
 app.get('/api/tags', tags.index);
