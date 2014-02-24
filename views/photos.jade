@@ -27,7 +27,7 @@ block content
 				h3 Collections
 				div(ng-repeat='coll in colls')
 					p(ng-click='collectionRoute(coll.id)',
-						ng-show='coll.owner_id==currUser.id') {{coll.name}} -- {{coll.description}}
+						ng-show='coll.owner_id==artist.id') {{coll.name}} -- {{coll.description}}
 
 	div(ng-show='state.page=="profile"')
 		div.row
