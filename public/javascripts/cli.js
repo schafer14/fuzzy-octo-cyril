@@ -127,11 +127,15 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 
 	$scope.createCollection = function() {
 		if (!$scope.newColl.name) {
-			$scope.logError('Collections need names');
+			$scope.logError('bg-warning', 'Collections need names');
 		} else {
 			$scope.newColl.desc = $scope.newColl.desc || '';
 			CollectionFactory.create($scope.newColl, function(data) {
-				console.log('Im home', data);
+				$scope.logError(data.type, data.msg);
+				$scope.newColl = {};
+				if (data.coll) {
+					$scope.colls.push(data.coll);
+				}
 			});
 		}
 	} 
