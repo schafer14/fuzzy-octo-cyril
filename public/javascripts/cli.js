@@ -35,9 +35,6 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		ArtistFactory.get(id, function(artist) {
 			$scope.state.name = artist.name;
 			$scope.artist = artist;
-			ArtistFactory.collections(id, function(collections) {
-				$scope.artist.collections = collections
-			})
 		});
 
 	}

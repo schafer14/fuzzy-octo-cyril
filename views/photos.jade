@@ -25,8 +25,9 @@ block content
 				p {{artist.description}}
 			div.col-sm-12.col-md-4
 				h3 Collections
-				div(ng-repeat='coll in artist.collections')
-					p(ng-click='collectionRoute(coll.id)') {{coll.name}} -- {{coll.description}}
+				div(ng-repeat='coll in colls')
+					p(ng-click='collectionRoute(coll.id)',
+						ng-show='coll.owner_id==currUser.id') {{coll.name}} -- {{coll.description}}
 
 	div(ng-show='state.page=="profile"')
 		div.row
