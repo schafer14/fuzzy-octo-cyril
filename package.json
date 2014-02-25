@@ -13,6 +13,7 @@
     "mocha": "~1.7.1",
     "migrate": "~0.1.4",
     "bcrypt": "~0.7.7",
-    "formidable": "~1.0.14"
+    "formidable": "~1.0.14",
+    "gm": "~1.14.2"
   }
 }
