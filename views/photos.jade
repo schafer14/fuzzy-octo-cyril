@@ -43,6 +43,16 @@ block content
 			div.col-sm-6.col-md-4
 				div.thumbnail
 					h3 Add pictures.
+					form(method='POST', action='/photos', enctype='multipart/form-data')
+						select.form-control(name='coll_id')
+							option(ng-repeat='coll in colls', ng-show='coll.owner_id==currUser.id', 
+								value='{{coll.id}}', name='coll_id') {{coll.name}}
+						input.form-control(type='file', name='files', multiple)
+						div.input-group
+							span.input-group-addon $
+							input.form-control(type='number', min='1', name='price', placeholder='Price')
+							span.input-group-addon .00
+						input.btn.btn-primary(type='submit', value='Upload')
 			div.col-sm-6.col-md-4
 				div.thumbnail
 					div.caption
