@@ -2,7 +2,7 @@ var Photo = require('../model/Photo');
 var formidable = require('formidable');
 var db = require('../middleware/db').db;
 var folder = './public/pictures/photos/';
-var temp = './temp';
+var temp = './img/tmp/';
 
 exports.index = function(req, res) {
 	Photo.all(function(err, photos) {
@@ -39,6 +39,7 @@ exports.create = function(req, res) {
 						msg: 'Error saving photo'
 					});
 				} else {
+					require('../process.js').fork;
 					res.render('photos', {title: 'Photos', filename:'template/layout'});
 				}
 			});
