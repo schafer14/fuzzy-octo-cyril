@@ -38,6 +38,27 @@ Photo.all = function(cb) {
 	})
 }
 
+Photo.processed = function(cb) {
+	var photos = [];
+	var query = ''
+		+ 'SELECT photo.name as name, photo.id, photo.description, photo.approved, photo.path, photo.price, user.name as artist, collection.name as collection,collection.id as collection_id, user.id as user_id, photo.created_at, user.email '
+		+ 'FROM photo '
+		+ 'JOIN user '
+		+ 'ON user.id = user_id '
+		+ 'JOIN collection '
+		+ 'ON collection.id = collection_id '
+		+ 'WHERE photo.approved = 0 and processed = 1 '
+		+ 'ORDER BY photo.created_at DESC; ';
+	
+	db.query(query, function(err, rows) {
+		if (err) return cb(err);
+		for(index in rows) {
+			photos.push(new Photo(rows[index]));
+		}
+		cb(null, photos);
+	})
+}
+
 Photo.count = function(cb) {
 	var query = 'SELECT COUNT(*) AS count FROM photo';
 	db.query(query, function(err, data) {

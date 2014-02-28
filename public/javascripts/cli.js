@@ -26,6 +26,17 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		}
 	}
 
+	$scope.adminRoute = function() {
+		$scope.state = {
+			page: 'admin',
+			name: 'Admin Panel'
+		}
+
+		PhotoFactory.processed(function(data) {
+			$scope.processed = data.photos;
+		})
+	}
+
 	$scope.artistRoute = function(id) {
 		$scope.state = {
 			page: 'artist',
@@ -147,6 +158,18 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 					name: msg.user.name
 				}
 			}
+		})
+	}
+
+	$scope.respond = function(photo, answer, index) {
+		PhotoFactory.approve(photo.id, answer, function(data) {
+			if(data.msg) {
+				$scope.logError(data.type, data.msg);
+			}
+			if (answer === 'accept') {
+				$scope.photos.push(photo);
+			}
+			delete $scope.processed[index]
 		})
 	}
 

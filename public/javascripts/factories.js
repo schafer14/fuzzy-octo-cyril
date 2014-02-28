@@ -11,6 +11,27 @@ snap.factory('PhotoFactory', function($http) {
 			});
 	}
 
+	factory.processed = function(cb) {
+		$http({method: 'GET', url: '/api/processed'}).
+		success(function(data) {
+			return cb(data);
+		}).
+		error(function(data) {
+			console.log(data)
+		});
+	}
+
+	factory.approve = function(id, approved, cb) {
+		var good = approved == 'accept' ? 1 : 0;
+		$http({method: 'POST', url: '/api/photos/' + id + '/approved', data: {approved: approved}}).
+		success(function(data) {
+			return cb(data);
+		}).
+		error(function(data) {
+			console.log(data)
+		});
+	}
+
 
 	return factory;
 })

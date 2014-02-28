@@ -68,7 +68,8 @@ User.prototype.toJSON = function() {
         name: this.name,
         email: this.email,
         img: this.img,
-        description: this.description
+        description: this.description,
+        level: this.level
     };
 }
 

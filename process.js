@@ -14,6 +14,9 @@ db.query('SELECT * FROM photo WHERE processed = 0', function(err, photos) {
 			db.query('UPDATE photo SET processed = 1 WHERE id = ' + photo.id, function(err) {
 				if(err) throw err;
 			})
+			db.query('UPDATE photo SET path=? WHERE id = ' + photo.id, '/pictures/photos/' + photo.path, function(err) {
+				if(err) throw err;
+			})
 		});
 	});
 	email(function(err) {
