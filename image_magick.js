@@ -16,7 +16,7 @@ function imager(origin, dest) {
 		.resize(600, 600)
 		.noProfile()
 		.stroke('#911821')
-		.font('Helvetica.ttf', 24)
+		.font('nytimes', 24)
 		.drawText(60, 60, 'SnapStock.au')
 		.stroke('#108a93')
 		.drawText(120, 120, 'SnapStock.au')

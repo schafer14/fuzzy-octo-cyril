@@ -6,7 +6,7 @@ block js
 
 block content
 	div(ng-show='state.page=="photo"')
-		div.col-sm-4.col-md-3(ng-repeat='photo in photos')
+		div.col-sm-12.col-md-3(ng-repeat='photo in photos')
 			div.thumbnail
 				img(src='{{photo.path}}')
 				div.caption
@@ -39,7 +39,9 @@ block content
 							input.form-control(type='file', name='img')
 							input.form-control(type='text', ng-model='currUser.name', name='name')
 							textarea.form-control.contenteditable(ng-model='currUser.description', name='description')
-							input.btn.btn-primary(type='submit', value='Save')
+							input.btn.btn-primary.pull-right(type='submit', value='Save')
+							br
+							br
 			div.col-sm-6.col-md-4
 				div.thumbnail
 					h3 Add pictures.
@@ -52,12 +54,16 @@ block content
 							span.input-group-addon $
 							input.form-control(type='number', min='1', name='price', placeholder='Price')
 							span.input-group-addon .00
-						input.btn.btn-primary(type='submit', value='Upload')
+						input.btn.btn-primary.pull-right(type='submit', value='Upload')
+						br
+						br
 			div.col-sm-6.col-md-4
 				div.thumbnail
 					div.caption
 						h3 Create Collection.
 						input.form-control(type='text', placeholder='Collection Name', ng-model='newColl.name')
 						textarea.form-control(placeholder='Description', ng-model='newColl.desc')
-						button.btn.btn-primary(ng-click='createCollection()', value='Create') Create
+						button.btn.btn-primary.pull-right(ng-click='createCollection()', value='Create') Create
+						br
+						br
 
