@@ -2,15 +2,9 @@ var fs = require('fs');
 var gm = require('gm');
 var im = gm.subClass({imageMagick: true})
 
-var root = __dirname + '/public/pictures/users/1101593b9f578b47cbfd520baca2c47f';
-var origin = root + '.jpg';
-var dest = root + 'new.jpg';
-
-imager(origin, dest);
-
-
-
-function imager(origin, dest) {
+exports.mark = function (file) {
+	var origin = __dirname + '/img/temp/' + file;
+	var dest = __dirname + '/public/pictures/photos/' + file;
 	im(origin)
 		.enhance()
 		.resize(600, 600)
@@ -25,6 +19,6 @@ function imager(origin, dest) {
 		});
 }
 
+
 // #911821 red
 // #108a93 blue
-// Font 'Lobster', cursive
