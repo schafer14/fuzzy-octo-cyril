@@ -89,7 +89,7 @@ Collection.prototype.photos = function(cb) {
 		+ 'ON snapstock.photo.collection_id = collection.id '
 		+ 'JOIN user '
 		+ 'ON snapstock.photo.user_id = user.id '
-		+ 'WHERE collection_id=? ';
+		+ 'WHERE collection_id=? AND approved=1';
 
 	db.query(query, this.id, function(err, rows) {
 		if (err) return cb(err);

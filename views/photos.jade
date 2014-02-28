@@ -68,14 +68,13 @@ block content
 						br
 						br
 	div(ng-show='state.page=="admin"')
-		p {{processed}}
 		div.col-sm-6.col-md-6
 			div(ng-repeat='(index, photo) in processed')
 				div.col-sm-6.col-md-6
 					div.thumbnail
 						img(src='{{photo.path}}')
 						div.caption
-							p.center-text {{photo.artist}} - {{photo.email}} - {{photo.id}}
+							p.center-text {{photo.artist}} - {{photo.email}}
 							button.btn.btn-success.pull-left(ng-click='respond(photo, "accept", index)') Accept
 							button.btn.btn-danger.pull-right(ng-click='respond(photo, "reject", index)') Reject
 							br
