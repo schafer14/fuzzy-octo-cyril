@@ -62,7 +62,7 @@ Tag.prototype.photos = function(cb) {
 	+ 'FROM photo '
 	+ 'JOIN photos_tags '
 	+ 'ON photo.id = photos_tags.photo_id '
-	+ 'WHERE tag_id = ?';
+	+ 'WHERE tag_id = ? AND approved=1 ';
 
 	db.query(query, this.id, function(err, rows) {
 		if (err) return cb(err);
