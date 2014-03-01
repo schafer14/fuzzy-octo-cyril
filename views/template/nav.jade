@@ -83,6 +83,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 								ng-model='reg.confPass', placeholder='Password Confirmation')
 							li.divider
 							li: a: button.btn.btn-primary.pull-right(ng-click='registerUser()') Register
+				li: a(href="#", ng-click='myPhotos()', ng-show='currUser') My Photos
 				li: a(href="#", ng-click='adminRoute()', ng-show='currUser.level >= 500') Admin Panel
 				li: a(href="#", ng-click='profileRoute()', ng-show='currUser') Profile
 				li: a(href="#", ng-click='logout()', ng-show='currUser') Logout ({{ currUser.name }})

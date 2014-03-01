@@ -26,6 +26,15 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		}
 	}
 
+	$scope.myPhotos = function() {
+		if ($scope.currUser) {
+			$scope.state = {
+				page: 'myPhotos',
+				name: $scope.currUser.name + '\'s Photos'
+			}
+		}
+	}
+
 	$scope.adminRoute = function() {
 		$scope.state = {
 			page: 'admin',
