@@ -85,4 +85,6 @@ block content
 			div.thumbnail
 				img(src='{{photo.path}}')
 				div.caption
-					p Fix
+					h3.center-text {{photo.name}}
+					select.form-control
+						option(ng-repeat="tag in tags", value="{{tag.id}}") {{tag.name}} 
