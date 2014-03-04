@@ -30,7 +30,7 @@ Photo.all = function(cb) {
 		+ ')) as tags '
 
 	var query = ''
-		+ 'SELECT photo.name as name, photo.description, photo.approved, photo.path, photo.price, user.name as artist, collection.name as collection, collection.id as collection_id, user.id as user_id, photo.created_at, '
+		+ 'SELECT photo.id, photo.name as name, photo.description, photo.approved, photo.path, photo.price, user.name as artist, collection.name as collection, collection.id as collection_id, user.id as user_id, photo.created_at, '
 		+ subquery
 		+ 'FROM photo '
 		+ 'JOIN user '

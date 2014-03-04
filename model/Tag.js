@@ -1,5 +1,6 @@
 var db = require('../middleware/db').db;
 var Photo = require('./Photo');
+var self = this;
 
 module.exports = Tag;
 
@@ -71,4 +72,25 @@ Tag.prototype.photos = function(cb) {
 		}
 		cb(null, photos);
 	})
+}
+
+Tag.search = function(t, cb) {
+	var query = 'SELECT id FROM tag WHERE name=?'
+	db.query(query, t, function(err, data) {
+		if (err) throw err;
+		if (data[0]) return cb(data[0].id);
+		t = new Tag({name: t})
+		t.save(function(err, id) {
+			if (err) throw err;
+			return cb(id);
+		})
+	});
+};
+
+Tag.addPhoto = function(photo_id, tag_id, cb) {
+	var query = 'INSERT INTO photos_tags (photo_id, tag_id) values (?,?) '
+	db.query(query, [photo_id, tag_id], function(err, data) {
+		if (err) throw err;
+		return cb();
+	}) 
 }

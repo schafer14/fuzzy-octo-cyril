@@ -21,3 +21,20 @@ exports.find = function(req, res) {
 		});
 	});
 };
+
+exports.create = function(req, res) {
+	var tag_name = req.body.tag_name;
+	var photo_id = req.body.photo_id;
+	Tag.search(tag_name, function(tag_id) {
+		Tag.addPhoto(photo_id, tag_id, function(err) {
+			if (err) throw err;
+			Tag.all(function(err, tags) {
+				res.json({
+					type: 'bg-success',
+					msg: 'Tag created',
+					tags: tags
+				});
+			});
+		});
+	});
+};

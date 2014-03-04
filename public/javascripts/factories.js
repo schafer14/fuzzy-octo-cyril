@@ -97,6 +97,19 @@ snap.factory('TagFactory', function($http) {
 				console.log(data);
 			})
 	}
+
+	factory.create = function(photo_id, tag_name, cb) {
+		$http({method: 'POST', url:'/api/tags', data: {
+			photo_id: photo_id,
+			tag_name: tag_name
+		}}).
+		success(function(data) {
+			cb(data)
+		}).
+		error(function(data) {
+			console.log(data)
+		});
+	}
 	return factory;
 
 })

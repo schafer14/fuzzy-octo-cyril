@@ -35,7 +35,6 @@ if ('development' == app.get('env')) {
 }
 
 app.set('title', 'SnapStock.au');
-app.set('email', 'banner.schafer@gmail.com');
 
 app.get('/', routes.index);
 app.get('/api/photos', photo.index);
@@ -46,6 +45,7 @@ app.post('/api/collections', collections.create);
 app.get('/api/collections', collections.index);
 app.get('/api/collections/:id', collections.find);
 app.get('/api/tags', tags.index);
+app.post('/api/tags', tags.create);
 app.get('/api/tags/:id', tags.find);
 app.get('/api/artists', artists.index);
 app.get('/api/artists/:id', artists.find);

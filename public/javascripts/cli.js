@@ -142,6 +142,16 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		}
 	}
 
+	$scope.addTag = function(photo, tag_name) {
+		if (tag_name) {
+			TagFactory.create(photo.id, tag_name, function(data) {
+				$scope.logError(data.type, data.msg);
+				$scope.tags = data.tags
+				photo.tags += ', ' + tag_name
+			})
+		}
+	}
+
 	$scope.createCollection = function() {
 		if (!$scope.newColl.name) {
 			$scope.logError('bg-warning', 'Collections need names');
