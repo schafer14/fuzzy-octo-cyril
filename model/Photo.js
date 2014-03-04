@@ -19,8 +19,19 @@ Photo.find = function(id, cb) {
 
 Photo.all = function(cb) {
 	var photos = [];
+
+	var subquery = ''
+		+ '(SELECT group_concat(`name` separator ", ") '
+		+ 'FROM snapstock.tag '
+		+ 'WHERE id in ( '
+		+ 'SELECT tag_id '
+		+ 'FROM snapstock.photos_tags '
+		+ 'WHERE photo_id = photo.id '
+		+ ')) as tags '
+
 	var query = ''
-		+ 'SELECT photo.name as name, photo.description, photo.approved, photo.path, photo.price, user.name as artist, collection.name as collection,collection.id as collection_id, user.id as user_id, photo.created_at '
+		+ 'SELECT photo.name as name, photo.description, photo.approved, photo.path, photo.price, user.name as artist, collection.name as collection, collection.id as collection_id, user.id as user_id, photo.created_at, '
+		+ subquery
 		+ 'FROM photo '
 		+ 'JOIN user '
 		+ 'ON user.id = user_id '
@@ -28,6 +39,7 @@ Photo.all = function(cb) {
 		+ 'ON collection.id = collection_id '
 		+ 'WHERE photo.approved = 1 '
 		+ 'ORDER BY photo.created_at DESC; ';
+
 	
 	db.query(query, function(err, rows) {
 		if (err) return cb(err);
