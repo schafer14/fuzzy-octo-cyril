@@ -198,6 +198,10 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		}
 	})
 
+	$scope.tagHelp = 'Begin typing the tag you wish to add in the input box. '
+		+ 'If a similar tag exists click the Add Tag button. '
+		+ 'If that tag has not been created click the Create Tag button.'
+
 	CollectionFactory.getCollections(function(colls) {
 		$scope.colls = colls;
 	});

@@ -86,6 +86,11 @@ block content
 				img(src='{{photo.path}}')
 				div.caption
 					h3.center-text {{photo.name}}
-					select.form-control
-						option(ng-repeat="tag in tags", value="{{tag.id}}") {{tag.name}} 
+					input.form-control(type='text', ng-model='tsearch', placeholder='Start typing tag name')
+					p.text-center(title='{{tagHelp}}') Hover for Help
+					span(ng-repeat="tag in tags | orderBy:'name' | filter:tsearch | limitTo:1")
+						button.btn.btn-default.pull-left Add {{tag.name}} Tag
+					button.btn.btn-default.pull-right(ng-show='tsearch') Create {{tsearch}} Tag
+					br
+					br
 					h5.center-text Tags: {{photo.tags}}
