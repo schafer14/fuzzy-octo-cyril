@@ -109,3 +109,11 @@ Photo.prototype.save = function(cb) {
 
 
 }
+
+Photo.prototype.update = function(name, price, cb) {
+	var query = 'UPDATE photo SET `name`=?, price=? WHERE id=?';
+	db.query(query, [name, price, this.id], function(err) {
+		if (err) return(cb(err));
+		cb();
+	})
+}

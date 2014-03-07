@@ -119,6 +119,14 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		})
 	}
 
+	$scope.updatePhoto = function(photo) {
+		PhotoFactory.edit(photo, function(data) {
+			if (data) {
+				$scope.logError(data.type, data.msg);
+			}
+		})
+	}
+
 	$scope.logError = function(type, msg) {
 		if (type && msg) {
 			$scope.msg.push({type: type, msg: msg});

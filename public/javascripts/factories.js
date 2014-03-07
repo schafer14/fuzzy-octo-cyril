@@ -32,6 +32,19 @@ snap.factory('PhotoFactory', function($http) {
 		});
 	}
 
+	factory.edit = function(photo, cb) {
+		$http({method:'POST', url: '/api/photos/' + photo.id, data: {
+			name: photo.name,
+			price: photo.price
+		}}).
+		success(function(data) {
+			return cb(data)
+		}).
+		error(function(data) {
+			console.log(data)
+		})
+	}
+
 
 	return factory;
 })

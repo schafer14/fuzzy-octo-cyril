@@ -40,6 +40,7 @@ app.get('/', routes.index);
 app.get('/api/photos', photo.index);
 app.get('/api/processed', photo.processed);
 app.post('/api/photos/:id/approved', photo.approve);
+app.post('/api/photos/:id', photo.update);
 app.post('/photos', photo.create);
 app.post('/api/collections', collections.create);
 app.get('/api/collections', collections.index);

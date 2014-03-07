@@ -66,7 +66,6 @@ exports.processed = function(req, res) {
 }
 
 exports.approve = function(req, res) {
-	console.log(req.body.approved);
 	if (req.body.approved === 'accept') {
 		console.log('here');
 		db.query('UPDATE photo SET approved = 1 WHERE id = ' + req.params.id, function(err) {
@@ -89,3 +88,16 @@ exports.approve = function(req, res) {
 		});
 	}
 }
+
+exports.update = function(req, res) {
+	Photo.find(req.params.id, function(err, photo) {
+		if (err) throw err;
+		photo.update(req.body.name, req.body.price, function(err) {
+			if (err) throw err;
+			res.json({
+				type: 'bg-success',
+				msg: 'Photo has been updated'
+			});
+		});
+	});
+};
