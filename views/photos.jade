@@ -95,3 +95,11 @@ block content
 					br
 					br
 					h5.center-text Tags: {{photo.tags}}
+					hr
+					h3.center-text Update
+					input.form-control(type='text', ng-model='photo.name')
+					div.input-group
+						span.input-group-addon $
+						input.form-control(type='number', ng-model='photo.price')
+						span.input-group-addon .00
+					button.btn.btn-primary Submit
