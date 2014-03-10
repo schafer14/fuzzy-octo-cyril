@@ -8,13 +8,25 @@ block content
 	div(ng-show='state.page=="photo"')
 		div.col-sm-12.col-md-3(ng-repeat='photo in photos')
 			div.thumbnail
-				img(src='{{photo.path}}')
-				div.caption
+				img(src='{{photo.path}}', data-toggle='modal', data-target='photoModal')
+				div.caption.center-text
 					h3.center-text {{photo.name}}
 					h4.center-text(ng-click='artistRoute(photo.user_id)') By {{photo.artist}}
 					h5.center-text(ng-click='collectionRoute(photo.collection_id)') From {{photo.collection}}
 					p.center-text {{photo.description}}
+					button.btn(data-toggle='modal', data-target='#photoModal') More
 				
+	.modal.fade(id='photoModal', tabindex='-1', aria-labelledby='photoModalLabel', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4 Photo
+				.modal-body
+					p One fine body &hellip;
+				.modal-footer
+					button.btn.btn-default(type='button', data-dismiss='modal') Close
+					button.btn.btn-primary(type='button', ng-click='buy()') Buy
 
 	div(ng-show='state.page=="artist"')
 		div.row
@@ -103,3 +115,4 @@ block content
 						input.form-control(type='number', ng-model='photo.price')
 						span.input-group-addon .00
 					button.btn.btn-primary(ng-click='updatePhoto(photo)') Submit
+

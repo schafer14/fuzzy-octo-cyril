@@ -90,6 +90,12 @@ exports.approve = function(req, res) {
 }
 
 exports.update = function(req, res) {
+	if (req.session.uid != req.params.id) {
+		res.json({
+			type: 'bg-danger',
+			msg: 'Access of unaccessible information this error will be reported'
+		});
+	}
 	Photo.find(req.params.id, function(err, photo) {
 		if (err) throw err;
 		photo.update(req.body.name, req.body.price, function(err) {
