@@ -23,10 +23,11 @@ block content
 					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
 					h4 {{display.name}}
 				.modal-body
-					img(src='{{display.path}}')
+					.thumbnail
+						img(src='{{display.path}}')
 				.modal-footer
 					button.btn.btn-default(type='button', data-dismiss='modal') Close
-					button.btn.btn-primary(type='button', ng-click='buy()') Buy
+					button.btn.btn-primary(type='button', ng-click='buy()') Buy (${{display.price}}.00)
 
 	div(ng-show='state.page=="artist"')
 		div.row
