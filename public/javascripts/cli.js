@@ -5,6 +5,7 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 	$scope.reg = {};
 	$scope.msg = [];
 	$scope.currUser = {};
+	$scope.display = {};
 
 	getCurrUser();
 
@@ -68,6 +69,10 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 		PhotoFactory.getPhotos(function(photos) {
 			$scope.photos = photos;
 		});
+	}
+
+	$scope.displayPic = function(photo) {
+		$scope.display = photo
 	}
 
 	$scope.collectionRoute = function(id) {

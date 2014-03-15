@@ -8,22 +8,22 @@ block content
 	div(ng-show='state.page=="photo"')
 		div.col-sm-12.col-md-3(ng-repeat='photo in photos')
 			div.thumbnail
-				img(src='{{photo.path}}', data-toggle='modal', data-target='photoModal')
+				img(src='{{photo.path}}', data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)')
 				div.caption.center-text
 					h3.center-text {{photo.name}}
 					h4.center-text(ng-click='artistRoute(photo.user_id)') By {{photo.artist}}
 					h5.center-text(ng-click='collectionRoute(photo.collection_id)') From {{photo.collection}}
 					p.center-text {{photo.description}}
-					button.btn(data-toggle='modal', data-target='#photoModal') More
+					button.btn(data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)') More
 				
 	.modal.fade(id='photoModal', tabindex='-1', aria-labelledby='photoModalLabel', aria-hidden='true')
 		.modal-dialog
 			.modal-content
 				.modal-header
 					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
-					h4 Photo
+					h4 {{display.name}}
 				.modal-body
-					p One fine body &hellip;
+					img(src='{{display.path}}')
 				.modal-footer
 					button.btn.btn-default(type='button', data-dismiss='modal') Close
 					button.btn.btn-primary(type='button', ng-click='buy()') Buy
