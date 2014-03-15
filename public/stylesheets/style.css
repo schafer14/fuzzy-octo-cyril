@@ -56,3 +56,6 @@ img {
 	border-color: white;
 }
 
+.link {
+	cursor: pointer;
+}

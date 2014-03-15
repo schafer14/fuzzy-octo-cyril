@@ -8,13 +8,12 @@ block content
 	div(ng-show='state.page=="photo"')
 		div.col-sm-12.col-md-3(ng-repeat='photo in photos')
 			div.thumbnail
-				img(src='{{photo.path}}', data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)')
+				img.link(src='{{photo.path}}', data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)')
 				div.caption.center-text
-					h3.center-text {{photo.name}}
+					h3.center-text.link(data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)') {{photo.name}}
 					h4.center-text(ng-click='artistRoute(photo.user_id)') By {{photo.artist}}
 					h5.center-text(ng-click='collectionRoute(photo.collection_id)') From {{photo.collection}}
 					p.center-text {{photo.description}}
-					button.btn(data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)') More
 				
 	.modal.fade(id='photoModal', tabindex='-1', aria-labelledby='photoModalLabel', aria-hidden='true')
 		.modal-dialog
@@ -26,8 +25,16 @@ block content
 					.thumbnail
 						img(src='{{display.path}}')
 				.modal-footer
+					span ${{display.price}}.00
+					form.btn(name='_xclick', action='https://www.paypal.com/au/cgi-bin/webscr', method='post')
+						input(type='hidden', name='cmd', value='_xclick')
+						input(type='hidden', name='buisness', value='snapstock.au@gmail.com')
+						input(type='hidden', name='currency_code', value='AUD')
+						input(type='hidden', name='item_name', value='photo_{{display.id}}')
+						input(type='hidden', name='amount', value='{{display.price}}.00')
+						input(type='image', src='http://www.paypal.com/en_AU/i/btn/x-click-but01.gif',
+							border='0', name='submit', alt='Make Paypal Payment')
 					button.btn.btn-default(type='button', data-dismiss='modal') Close
-					button.btn.btn-primary(type='button', ng-click='buy()') Buy (${{display.price}}.00)
 
 	div(ng-show='state.page=="artist"')
 		div.row
