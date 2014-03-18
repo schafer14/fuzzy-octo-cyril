@@ -76,6 +76,11 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 							li: a: input.form-control.input-sm(type='text',
 								ng-model='reg.email', placeholder='Email')
 							li.divider
+							li: a: input.form-control.input-sm(type='text',
+								ng-model='reg.paypal', placeholder='Paypal Email')
+							br
+							p.label.label-info(title='{{paypalExcerpt}}') Hover for help
+							li.divider
 							li: a: input.form-control.input-sm(type='password',
 								ng-model='reg.pass', placeholder='Password')
 							li.divider

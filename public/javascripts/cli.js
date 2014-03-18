@@ -223,7 +223,9 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 
 	$scope.tagHelp = 'Begin typing the tag you wish to add in the input box. '
 		+ 'If a similar tag exists click the Add Tag button. '
-		+ 'If that tag has not been created click the Create Tag button.'
+		+ 'If that tag has not been created click the Create Tag button.';
+	$scope.paypalExcerpt = 'We will pay you via paypal so please ensure you have a paypal account. '
+		+ 'If your paypal email is the same as your contact email you may leave this section blank. ';
 
 	CollectionFactory.getCollections(function(colls) {
 		$scope.colls = colls;
