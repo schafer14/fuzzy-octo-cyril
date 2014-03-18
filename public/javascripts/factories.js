@@ -164,7 +164,8 @@ snap.factory('ArtistFactory', function($http) {
 		$http({method: 'POST', url: '/api/artists', data: {
 			name: reg.name,
 			email: reg.email,
-			pass: reg.pass
+			pass: reg.pass,
+			paypal: reg.paypal
 		}}).
 		success(function(data) {
 			return cb(null, data);

@@ -19,6 +19,7 @@ User.prototype.save = function(cb) {
     if (!this.pass) return cb(new Error('Must have a password'));
     this.img = this.img || '';
     this.description = this.description || '';
+    this.paypal = this.paypal || this.email;
 
     if (!user.salt) {
         User.salt(user, function() {
@@ -33,10 +34,10 @@ User.prototype.save = function(cb) {
     }
 
     function next() {
-        var query = 'INSERT INTO user (name, email, password, img, description, salt) ' 
-            + 'values (?, ?, ?, ?, ?, ?)';
+        var query = 'INSERT INTO user (name, email, password, img, description, salt, paypal_email) ' 
+            + 'values (?, ?, ?, ?, ?, ?, ?)';
 
-        var params = [user.name, user.email, user.pass, user.img, user.description, user.salt];
+        var params = [user.name, user.email, user.pass, user.img, user.description, user.salt, user.paypal];
 
         db.query(query, 
             params,
