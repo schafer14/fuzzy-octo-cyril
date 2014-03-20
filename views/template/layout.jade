@@ -10,13 +10,14 @@ html(data-ng-app='snap')
 		
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		block header
-	body(data-ng-controller='appController' data-ng-init='photoRoute()')
+	body(data-ng-controller='appController', data-ng-init='photoRoute()', ng-class='class')
 		include nav
+		include loading
+		
 		div.fluid-container#content
 			include message
 			h1 {{ state.name }}
 			block content
-		//- include footer
 
 		script(src='/javascripts/jQuery.min.js')
 		script(src='/javascripts/bootstrap.min.js')

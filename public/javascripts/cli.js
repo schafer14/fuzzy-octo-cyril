@@ -6,6 +6,7 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 	$scope.msg = [];
 	$scope.currUser = {};
 	$scope.display = {};
+	$scope.class = ''
 
 	getCurrUser();
 
@@ -96,9 +97,11 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 	}
 
 	$scope.registerUser = function() {
+		$scope.class='loading'
 		$scope.reg.authenticate(function(err) {
 			if (err) {
 				$scope.logError(err.type, err.msg);
+				$scope.class = ''
 			} else {
 				ArtistFactory.register($scope.reg, function(err, data) {
 					if (err) {
@@ -106,6 +109,7 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 					} else {
 						$scope.logError(data.type, data.msg);
 					}
+					$scope.class = ''
 				})	
 			}
 		})
@@ -181,6 +185,7 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 	} 
 
 	$scope.loginUser = function() {
+		$scope.class = 'loading';
 		ArtistFactory.login($scope.auth, function(msg) {
 			$scope.logError(msg.type, msg.msg);
 			if(msg.user) {
@@ -190,6 +195,7 @@ snap.controller('appController', function($scope, CollectionFactory, TagFactory,
 					name: msg.user.name
 				}
 			}
+			$scope.class = '';
 		})
 	}
 

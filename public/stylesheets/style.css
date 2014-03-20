@@ -59,3 +59,11 @@ img {
 .link {
 	cursor: pointer;
 }
+
+.loading {
+	cursor: wait !important;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 5px;
+	border-color: white;
+}
