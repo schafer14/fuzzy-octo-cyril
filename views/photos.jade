@@ -11,8 +11,8 @@ block content
 				img.link(src='{{photo.path}}', data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)')
 				div.caption.center-text
 					h3.center-text.link(data-toggle='modal', data-target='#photoModal', ng-click='displayPic(photo)') {{photo.name}}
-					h4.center-text(ng-click='artistRoute(photo.user_id)') By {{photo.artist}}
-					h5.center-text(ng-click='collectionRoute(photo.collection_id)') From {{photo.collection}}
+					h4.center-text.link(ng-click='artistRoute(photo.user_id)') By {{photo.artist}}
+					h5.center-text.link(ng-click='collectionRoute(photo.collection_id)') From {{photo.collection}}
 					p.center-text {{photo.description}}
 				
 	.modal.fade(id='photoModal', tabindex='-1', aria-labelledby='photoModalLabel', aria-hidden='true')
